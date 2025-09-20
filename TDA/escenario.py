@@ -1,11 +1,17 @@
 import sys
 
-" --- FUNCIONES AUXILIARES --- "
+# --- FUNCIONES AUXILIARES --- 
 
 def int_a_array(num: int) -> list[int]:
+    """
+    Toma un entero y lo convierte en un array cuyos valores son cada digito del entero
+    """
     return [int(digit) for digit in str(num)]
 
 def rango_array(array: list[int]) -> (int,int):
+    """
+    Toma un array y devuelve su minimo y su maximo
+    """
     max = 0
     for i in range(0, len(array)):
         if max == 0:
@@ -18,6 +24,9 @@ def rango_array(array: list[int]) -> (int,int):
     return (min,max)
         
 def counting_sort_array(array: list[int]) -> list[int]:
+    """
+    Auxiliar de counting sort que devuelve el array de conteo de datos
+    """
     (min,max) = rango_array(array)
     aux_array = [0] * max
 
@@ -27,6 +36,10 @@ def counting_sort_array(array: list[int]) -> list[int]:
     return aux_array
 
 def reconstruir_counting_sort(array: list[int], array_count: list[int]) -> list[int]:
+    """
+    Auxiliar de counting sort que reconstruye el array original
+    a partir de el array de conteo
+    """
     ret_array = [0] * len(array)
     siguiente_cantidad = 0
     cantidad = 0
@@ -39,23 +52,31 @@ def reconstruir_counting_sort(array: list[int], array_count: list[int]) -> list[
     return ret_array
 
 def counting_sort(array: list[int]) -> list[int]:
+    """
+    Counting sort ordena un array de enteros respecto a la cantidad de veces que aparece
+    un entero dentro del array, puesto en un array de conteo cuyos indices representan
+    un valor dentro del array
+    """
     aux_array = counting_sort_array(array)
     return reconstruir_counting_sort(array, aux_array)
     
         
 def reconstruir_int_de_array(array: list[int]) -> int:
+    """
+    Toma un array de enteros y reconstruye su valor original dentro de los valores del array
+    """
     num = int(''.join(str(digit) for digit in array))
     return num
 
-" --- FUNCIONES DE ESCENARIO --- "
+# --- FUNCIONES DE ESCENARIO --- 
 
 def verificar_centro(array: list[int]) -> int:
-    '''
-    Toma un array ordenado y se fija si tiene un valor que no tiene par:
+    """
+    Toma un array ordenado y se fija si existe un valor que no tiene par:
     - Si no existe tal valor, retorna 0
     - Si existe retorna el valor
     - Si existe más de un valor que no tiene par retorna -1
-    '''
+    """
     centro = 0
     i = 0
     
@@ -75,9 +96,10 @@ def verificar_centro(array: list[int]) -> int:
     return centro
 
 def espejar_escenario_sin_centro(array: list[int]) -> list[int]:
-    '''
-    Toma un array con pares de valores ordenados y los coloca espejados desde el centro hacia afuera.
-    '''
+    """
+    Toma un array con pares de valores ordenados y 
+    los coloca espejados desde el medio hacia afuera.
+    """
     ret_array = [0] * len(array)
     n = len(array)
     mitad = n // 2
@@ -98,6 +120,9 @@ def espejar_escenario_sin_centro(array: list[int]) -> list[int]:
     return ret_array
 
 def quitar_centro(array: list[int], centro: int) -> list[int]:
+    """
+    Coloca un 0 en el primer lugar en donde aparece el valor centro del escenario
+    """
     n = len(array)
     for i in range(0, n):
         if (array[i] == centro):
@@ -105,6 +130,11 @@ def quitar_centro(array: list[int], centro: int) -> list[int]:
             return array
 
 def espejar_escenario_y_centro(array: list[int], centro: int) -> list[int]:
+    """
+    Toma un array de pares de valores ordenados y un centro, coloca
+    el centro de un array en el medio de un array de retorno,
+    luego coloca cada dato de los pares del array de manera espejada.
+    """
     ret_array = [0] * len(array)
     n = len(array)
     mitad = n // 2
@@ -128,6 +158,11 @@ def espejar_escenario_y_centro(array: list[int], centro: int) -> list[int]:
     return ret_array
 
 def formar_escenario(array: list[int]) -> list[int]:
+    """
+    Forma el escenario:
+    - Si no se puede formar retorna array = [-1]
+    - Si se puede, retorna un array de retorno dependiendo el caso.
+    """
     aux_array = counting_sort(array)
     centro = verificar_centro(aux_array)
     if(centro == 0):
@@ -138,7 +173,7 @@ def formar_escenario(array: list[int]) -> list[int]:
         ret_array = [-1]
     return ret_array
 
-" --- MAIN --- "
+# --- MAIN --- 
 
 if __name__ == "__main__":
     if(len(sys.argv) != 2):
