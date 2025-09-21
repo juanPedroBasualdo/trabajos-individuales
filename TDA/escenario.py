@@ -1,6 +1,6 @@
 import sys
-
-# --- FUNCIONES AUXILIARES --- 
+ 
+# FUNCIONES AUXILIARES 
 
 def int_a_array(num: int) -> list[int]:
     """
@@ -68,7 +68,7 @@ def reconstruir_int_de_array(array: list[int]) -> int:
     num = int(''.join(str(digit) for digit in array))
     return num
 
-# --- FUNCIONES DE ESCENARIO --- 
+# FUNCIONES DE ESCENARIO
 
 def verificar_centro(array: list[int]) -> int:
     """
@@ -173,7 +173,7 @@ def formar_escenario(array: list[int]) -> list[int]:
         ret_array = [-1]
     return ret_array
 
-# --- MAIN --- 
+# MAIN
 
 if __name__ == "__main__":
     if(len(sys.argv) != 2):
@@ -189,3 +189,4 @@ if __name__ == "__main__":
         print(f"no es posible formar el escenario")
     else:
         print(f"{escenario}")
+
